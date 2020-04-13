@@ -1,4 +1,4 @@
-./wordise.sh  > $$words
+gsed 's/[^a-zA-ZáÁéÉíÍóÓúÚ]\+/\n/g' | grep -v '^$' > $$words
 tail -n +2 $$words > $$nextwords
 paste $$words $$nextwords |
 sort | uniq -c

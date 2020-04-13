@@ -102,7 +102,7 @@ discardElements = set([
 #=========================================================================
 #
 # MediaWiki Markup Grammar
- 
+
 # Template = "{{" [ "msg:" | "msgnw:" ] PageName { "|" [ ParameterName "=" AnyText | AnyText ] } "}}" ;
 # Extension = "<" ? extension ? ">" AnyText "</" ? extension ? ">" ;
 # NoWiki = "<nowiki />" | "<nowiki>" ( InlineText | BlockText ) "</nowiki>" ;
@@ -111,7 +111,7 @@ discardElements = set([
 #
 # ParameterName = ? uppercase, lowercase, numbers, no spaces, some special chars ? ;
 #
-#=========================================================================== 
+#===========================================================================
 
 # Program version
 version = '2.5'
@@ -452,7 +452,7 @@ def clean(text):
     re2 = re.compile(r"__[A-Z]+__")
     text = re2.sub("", text)
     #Add other filters here
-    
+
     return text
 
 section = re.compile(r'(==+)\s*(.*?)\s*\1')
@@ -548,7 +548,7 @@ class OutputSplitter:
                 self.out_file.write(text)
         else:
             return
-        
+
 
     def close(self):
         self.out_file.close()
@@ -559,7 +559,7 @@ class OutputSplitter:
             self.dir_index += 1
             self.file_index = 0
         file_name = 'wiki.txt'
-        
+
         if self.compress:
             if self.isoutdated:
                 return bz2.BZ2File('wiki.txt.bz2', 'wb')
@@ -735,19 +735,19 @@ def main():
         print('')
         print("Please include --infn FIlENAME in your command.")
         sys.exit()
-    
+
     ftypes = mimetypes.guess_type(fname)
     if 'bzip2' in ftypes:
         print('File detected as being bzip2.')
         f = bz2.BZ2File(fname, mode='r')
         process_data('bzip2',f, output_sentences, vital_titles, incubator, vital_tags)
         output_sentences.close()
-        
+
     elif 'gzip' in ftypes:
         print('File detected as being a gzip.')
         f = gzip.GzipFile(fname, mode='r')
         process_data('gzip',f, output_sentences, vital_titles, incubator, vital_tags)
-        output_sentences.close() 
+        output_sentences.close()
     else:
         with open(args.infn) as infile:
             process_data('xml',infile, output_sentences, vital_titles, incubator, vital_tags)
